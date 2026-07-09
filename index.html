@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma is Guursaa Sihaameey?</title>
+    <style>
+        /* Qoraalka guud ee bogga iyo background-ka */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffe5ec, #ffb3c6);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* --- CUSBOONAYSIIN: Nashqadda Login Box-ka --- */
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 35px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(217, 4, 41, 0.15);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            z-index: 100;
+            border: 2px solid #ffb3c6;
+        }
+
+        .login-container h2 {
+            color: #c9184a;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #590d22;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffe5ec;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #ff4d6d;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: #ff758f;
+            transform: scale(1.02);
+        }
+
+        .error-message {
+            color: #d90429;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* Qaybta rasmiga ah ee content-ka (Waa qarsan tahay marka hore) */
+        .main-content {
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* 1. Sawirada Profile-ka ee Sare (Abdifatah & Sihaam) */
+        .left-pic, .right-pic {
+            position: absolute;
+            top: 30px;
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ff4d6d;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .left-pic { left: 40px; }
+        .right-pic { right: 40px; }
+
+        /* Container-ka dhexda ee qoraalka xambaarsan */
+        .content-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 550px;
+            z-index: 10;
+            margin: 180px 20px 120px 20px;
+        }
+
+        /* Qoraalka Weyn (Su'aasha) */
+        h1 {
+            color: #c9184a;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Erayada Jaceylka ee dhexda */
+        .love-text {
+            color: #590d22;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        /* Badhamada (Buttons) */
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-yes {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.4);
+        }
+
+        .btn-yes:hover {
+            background-color: #ff758f;
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-no:hover {
+            background-color: #5a6268;
+        }
+
+        /* 2. Sawirada Geesaha Hoose (Ubaxa iyo Jaceylka) */
+        .bottom-decor {
+            position: absolute;
+            bottom: 20px;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 2px solid #fff;
+        }
+
+        .decor-left-1 { left: 20px; bottom: 20px; }
+        .decor-left-2 { left: 160px; bottom: 20px; }
+        .decor-right-1 { right: 20px; bottom: 20px; }
+        .decor-right-2 { right: 160px; bottom: 20px; }
+
+        /* Ka dhig kuwa u nugul shaashadaha yaryar (Responsive) */
+        @media (max-width: 768px) {
+            .left-pic, .right-pic {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                margin: 10px;
+                width: 100px;
+                height: 100px;
+            }
+            .content-box {
+                margin: 20px;
+                padding: 25px;
+            }
+            .bottom-decor {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. FORM-KA LOGIN-KA (Kan ayaa marka ugu horraysa u muuqanaya) -->
+    <div class="login-container" id="loginBox">
+        <h2>Ku Soo Dhowaw Boqortooyada Jaceylka 🔐❤️</h2>
+        <div class="input-group">
+            <label for="username">Geli Magacaaga (Username):</label>
+            <input type="text" id="username" placeholder="Tusaale: Abdifatah">
+        </div>
+        <div class="input-group">
+            <label for="password">Geli Furaha (Password):</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+        <button class="login-btn" onclick="checkLogin()">Fur Bogga ✨</button>
+        <p class="error-message" id="errorMsg">Walaalo, Username ama Password-ka ayaa khaldan! 😢</p>
+    </div>
+
+    <!-- 2. BOGGA CUSUB (Wuxuu furmayaa oo keliya marka Login-ku saxmo) -->
+    <div class="main-content" id="mainPage">
+        <img src="Images/me1.JPG" alt="Abdifatah's profile photo" class="left-pic">
+        <img src="Images/siham2.jpg" alt="Siham's profile photo" class="right-pic">
+
+        <div class="content-box">
+            <h1>Ma is Guursaa Sihaameey? 🌹</h1>
+            
+            <div class="love-text">
+                <p>"Naftayda adigaa u hantiyay, nolosheedana adigaa u iftiimiyay. Geedka jaceylkeena waxaan rabaa inaan si wadajir ah u waraabino oo aan dhisno mustaqbal qurux badan oo rabaani ah. Adiga la'aantaa nolosha macno iima lahan..."</p>
+            </div>
+
+            <div class="btn-container">
+                <button class="btn btn-yes" onclick="alert('Guurkeenu waa barako! Aad baan kuu jecelahay ❤️')">Haa, Waa hubaal! 💍</button>
+                <button class="btn btn-no" onmouseover="this.style.position='absolute'; this.style.top=Math.random()*80+'%'; this.style.left=Math.random()*80+'%'">Maya 😢</button>
+            </div>
+        </div>
+
+        <img src="Images/flower1.jpg" alt="Flower 1" class="bottom-decor decor-left-1">
+        <img src="Images/love1.jpg" alt="Love 1" class="bottom-decor decor-left-2">
+        
+        <img src="Images/love2.jpg" alt="Love 2" class="bottom-decor decor-right-2">
+        <img src="Images/flower2.jpg" alt="Flower 2" class="bottom-decor decor-right-1">
+    </div>
+
+    <!-- --- CUSBOONAYSIIN: Code-ka Hubinta Login-ka --- -->
+    <script>
+        function checkLogin() {
+            var user = document.getElementById("username").value;
+            var pass = document.getElementById("password").value;
+            var error = document.getElementById("errorMsg");
+
+            // Hubinta Username: Sihaam iyo Password: Dhakhtar
+            if (user === "Sihaam" && pass === "Dhakhtar") {
+                document.getElementById("loginBox").style.display = "none"; // Qari login-ka
+                document.getElementById("mainPage").style.display = "flex"; // Muuji bogga jaceylka
+            } else {
+                error.style.display = "block"; // Muuji fariinta khaladka haddii ay is dhex dhumiso
+            }
+        }
+    </script>
+
+</body>
+</html>
